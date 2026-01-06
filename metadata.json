@@ -1,0 +1,7 @@
+{
+  "name": "Copy of Portal de Acompañamiento - Hospital de Día",
+  "description": "Sitio institucional de orientación, gestión administrativa y apoyo integral para el paciente oncológico.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
