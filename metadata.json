@@ -1,6 +1,6 @@
 {
-  "name": "Copy of Portal de Acompañamiento - Hospital de Día",
-  "description": "Sitio institucional de orientación, gestión administrativa y apoyo integral para el paciente oncológico.",
+  "name": "Sanatorio Aconcagua - Portal Institucional",
+  "description": "Portal de Hospital de Día y Fundación de Apoyo para pacientes oncológicos y sus familias.",
   "requestFramePermissions": [
     "microphone"
   ]

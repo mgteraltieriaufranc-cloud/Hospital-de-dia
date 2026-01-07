@@ -4,20 +4,26 @@ import {
   Heart, 
   FileText, 
   Calendar, 
-  Users, 
-  Info, 
   Activity,
   UserCircle,
-  Stethoscope,
   Sparkles,
   ArrowRight,
   Clock,
   Coffee,
   ShieldCheck,
   Brain,
+  BrainCircuit,
   MessageCircle,
   AlertCircle,
-  ExternalLink
+  ExternalLink,
+  Search,
+  BookOpen,
+  Info,
+  Users,
+  Phone,
+  Mail,
+  MapPin,
+  ChevronRight
 } from 'lucide-react';
 import { getSmartOrientation } from './services/geminiService';
 
@@ -28,94 +34,125 @@ const DOCTORS = [
   { name: 'Dra. Miranda', specialty: 'Oncología Clínica' },
 ];
 
+const SERVICES = [
+  { name: 'PAMI', desc: 'Gestión y atención especializada para afiliados.' },
+  { name: 'Obras Sociales', desc: 'Convenios con principales prestadoras.' },
+  { name: 'Turnos Oncología', desc: 'Agenda médica programada.' },
+  { name: 'Hematología', desc: 'Tratamientos onco-hematológicos.' },
+  { name: 'Hospital de Día', desc: 'Infusiones y cuidados de sesión.' },
+  { name: 'Salud Mental', desc: 'Apoyo emocional especializado.' },
+  { name: 'Conversatorios', desc: 'Espacios de aprendizaje y comunidad.' },
+];
+
 const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const [aiResponse, setAiResponse] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!query.trim()) return;
+  const handleSearch = async (e?: React.FormEvent, manualQuery?: string) => {
+    if (e) e.preventDefault();
+    const finalQuery = manualQuery || query;
+    if (!finalQuery.trim()) return;
+    
     setIsLoading(true);
-    const response = await getSmartOrientation(query);
+    setAiResponse(null);
+    const response = await getSmartOrientation(finalQuery);
     setAiResponse(response);
     setIsLoading(false);
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
-      {/* Header Institucional */}
-      <nav className="bg-white border-b border-slate-200 sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 h-24 flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <div className="bg-indigo-700 p-2.5 rounded-xl shadow-lg shadow-indigo-200">
-              <Activity className="text-white" size={28} />
+    <div className="min-h-screen bg-[#fdfbf7] flex flex-col selection:bg-emerald-100">
+      
+      {/* 1. HEADER / HERO */}
+      <nav className="bg-white border-b border-slate-100 sticky top-0 z-50 px-6 py-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-emerald-700 rounded-lg flex items-center justify-center text-white shadow-md">
+              <Activity size={24} />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Hospital de Día</h1>
-              <p className="text-sm text-indigo-600 font-semibold uppercase tracking-wider">Gestión y Acompañamiento</p>
+              <h1 className="text-lg font-black text-slate-900 leading-none">Sanatorio Aconcagua</h1>
+              <p className="text-[10px] font-bold text-emerald-700 uppercase tracking-widest mt-1">Hospital de Día & Fundación</p>
             </div>
           </div>
-          <div className="hidden lg:flex items-center space-x-8 text-sm font-bold text-slate-600">
-            <a href="#gestion" className="hover:text-indigo-700 transition-colors">Gestión Administrativa</a>
-            <a href="#informacion" className="hover:text-indigo-700 transition-colors">Información de Sesión</a>
-            <a href="#oncologia" className="hover:text-indigo-700 transition-colors">Oncología</a>
-            <a href="#salud-mental" className="hover:text-indigo-700 transition-colors">Salud Mental</a>
+          <div className="hidden lg:flex items-center space-x-8 text-[11px] font-black uppercase tracking-widest text-slate-500">
+            <a href="#institucional" className="hover:text-emerald-700">Nosotros</a>
+            <a href="#administrativo" className="hover:text-emerald-700">Gestión</a>
+            <a href="#paciente" className="hover:text-emerald-700">Preparación</a>
+            <a href="#fundacion" className="hover:text-emerald-700">Fundación</a>
+            <button className="bg-emerald-700 text-white px-5 py-2.5 rounded-full hover:bg-emerald-800 transition-all shadow-lg shadow-emerald-100">
+              Consultas Rápidas
+            </button>
           </div>
         </div>
       </nav>
 
-      {/* Hero: Bienvenida y Propósito */}
-      <header className="bg-gradient-to-b from-white to-slate-50 pt-20 pb-28 border-b border-slate-100">
-        <div className="max-w-5xl mx-auto px-6 text-center">
-          <div className="inline-flex items-center space-x-2 py-1.5 px-4 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-full mb-8 uppercase tracking-widest border border-indigo-100">
-            <Heart size={14} className="fill-indigo-700" />
-            <span>Estamos con vos en cada paso</span>
+      {/* HERO SECTION / IA ASSISTANT */}
+      <header className="bg-emerald-900 pt-20 pb-28 px-6 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white rounded-full blur-[150px] translate-x-1/2 -translate-y-1/2"></div>
+        </div>
+        
+        <div className="max-w-5xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight tracking-tight">
+              Cuidado integral <br/>
+              <span className="text-emerald-300">Sanatorio Aconcagua.</span>
+            </h2>
+            <p className="text-emerald-100 text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed opacity-90">
+              Consultas, turnos y servicios de acompañamiento. <br/>
+              Diseñado para brindar tranquilidad en cada etapa del tratamiento.
+            </p>
           </div>
-          <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-8 leading-[1.1]">
-            Un espacio pensado para <br className="hidden md:block" />
-            <span className="text-indigo-700">tu bienestar y organización.</span>
-          </h2>
-          <p className="text-lg md:text-xl text-slate-600 mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
-            Bienvenido a nuestro portal de orientación. Aquí encontrarás la información necesaria para gestionar tu atención, 
-            conocer los pasos de tu tratamiento y acceder al apoyo administrativo y emocional que necesitás.
-          </p>
 
-          {/* AI Search: Asistente de Orientación */}
-          <div className="max-w-2xl mx-auto relative group">
-            <form onSubmit={handleSearch} className="relative">
+          {/* 12. AUTOMATIZADOR DE RESPUESTAS (ESTILO OPENEVIDENCE) */}
+          <div className="max-w-3xl mx-auto">
+            <div className="flex items-center space-x-2 mb-4 text-emerald-300">
+              <BrainCircuit size={18} />
+              <span className="text-xs font-black uppercase tracking-[0.2em]">Consultoría Sanatorio Aconcagua - v3.0</span>
+            </div>
+            <form onSubmit={handleSearch} className="relative mb-6">
+              <div className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400">
+                <Search size={22} />
+              </div>
               <input
                 type="text"
-                placeholder="¿Cómo podemos orientarte hoy? (Ej: ¿Cómo pido un turno con Judith?)"
-                className="w-full pl-7 pr-36 py-6 bg-white border-2 border-slate-200 rounded-3xl shadow-2xl shadow-indigo-100/50 focus:border-indigo-500 focus:outline-none transition-all placeholder:text-slate-400 font-medium"
+                placeholder="¿En qué podemos ayudarte? (Turnos, Preparación, PAMI...)"
+                className="w-full pl-16 pr-44 py-6 bg-white border-none rounded-2xl shadow-2xl text-lg font-medium focus:ring-4 focus:ring-emerald-500/20 focus:outline-none"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
               <button 
                 type="submit"
                 disabled={isLoading}
-                className="absolute right-3 top-3 bottom-3 bg-indigo-700 text-white px-8 rounded-2xl font-bold flex items-center space-x-2 hover:bg-indigo-800 transition-all transform active:scale-95 disabled:opacity-50"
+                className="absolute right-3 top-3 bottom-3 bg-emerald-700 text-white px-8 rounded-xl font-bold flex items-center space-x-2 hover:bg-emerald-800 transition-all disabled:opacity-50"
               >
-                {isLoading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> : <Sparkles size={18} />}
-                <span>Orientarme</span>
+                {isLoading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> : <Sparkles size={16} />}
+                <span>Analizar</span>
               </button>
             </form>
 
             {aiResponse && (
-              <div className="mt-8 p-8 bg-white border border-indigo-100 rounded-3xl text-left shadow-xl animate-in fade-in slide-in-from-top-4 duration-500">
-                <div className="flex items-start space-x-4">
-                  <div className="bg-indigo-100 p-2 rounded-xl text-indigo-700">
-                    <Sparkles size={20} />
+              <div className="bg-white rounded-[2.5rem] shadow-2xl border border-slate-200 overflow-hidden animate-in fade-in slide-in-from-bottom-4">
+                <div className="bg-slate-50 px-8 py-4 border-b border-slate-100 flex items-center justify-between">
+                  <div className="flex items-center space-x-2 text-emerald-700 font-black text-[10px] uppercase tracking-widest">
+                    <BookOpen size={14} />
+                    <span>Informe de Orientación Institucional</span>
                   </div>
-                  <div className="flex-1">
-                    <h4 className="text-sm font-bold text-indigo-700 uppercase mb-2 tracking-wider">Respuesta de Orientación</h4>
-                    <p className="text-slate-700 text-base leading-relaxed mb-4">{aiResponse}</p>
-                    <button 
-                      onClick={() => setAiResponse(null)}
-                      className="bg-slate-100 text-slate-600 px-4 py-2 rounded-lg text-xs font-bold hover:bg-slate-200 transition-colors"
-                    >
-                      Cerrar orientación
-                    </button>
+                  <button onClick={() => setAiResponse(null)} className="text-slate-400 hover:text-slate-600 transition-colors">
+                    <AlertCircle size={18} />
+                  </button>
+                </div>
+                <div className="p-10">
+                  <p className="text-slate-700 leading-relaxed font-medium whitespace-pre-wrap">
+                    {aiResponse}
+                  </p>
+                  <div className="mt-8 pt-8 border-t border-slate-100 flex items-center justify-between">
+                    <div className="flex items-center space-x-2 text-[10px] font-black text-slate-400 uppercase italic">
+                      <ShieldCheck size={14} className="text-emerald-500" />
+                      <span>Requiere correlación clínica con su oncólogo.</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -124,147 +161,68 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {/* 1. Gestión Administrativa */}
-      <section id="gestion" className="py-24 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="order-2 lg:order-1">
-              <div className="inline-block p-3 bg-blue-50 text-blue-700 rounded-2xl mb-6">
-                <FileText size={32} />
-              </div>
-              <h2 className="text-4xl font-black text-slate-900 mb-6">Gestión Administrativa</h2>
-              <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-                Entendemos que la gestión de turnos y trámites es parte fundamental de tu tranquilidad. 
-                Nuestra referente administrativa, <strong>Judith Ponce</strong>, brinda una atención humana, cálida y profesional, 
-                enfocada en acompañarte y ordenar tus consultas para que puedas enfocarte en tu recuperación.
-              </p>
-              <div className="bg-slate-50 border border-slate-100 p-6 rounded-3xl mb-8">
-                <div className="flex items-center space-x-4 mb-4">
-                  <div className="w-12 h-12 bg-white rounded-full border-2 border-indigo-100 flex items-center justify-center text-indigo-600 font-black">JP</div>
-                  <div>
-                    <p className="text-sm text-slate-400 font-bold uppercase tracking-widest">Referente del área</p>
-                    <p className="text-lg font-bold text-slate-800">Judith Ponce</p>
+      {/* 2. QUIÉNES SOMOS */}
+      <section id="institucional" className="py-24 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="w-16 h-16 bg-emerald-50 text-emerald-700 rounded-2xl flex items-center justify-center mx-auto mb-10">
+            <Heart size={32} />
+          </div>
+          <h2 className="text-3xl font-black text-slate-900 mb-8 uppercase tracking-tight">Nuestra Misión de Cuidado</h2>
+          <p className="text-xl text-slate-600 font-medium leading-relaxed">
+            En el Sanatorio Aconcagua, entendemos que la medicina es técnica pero el cuidado es humano. 
+            Nuestra labor está centrada en la persona, brindando una atención integral donde el acompañamiento 
+            profesional y emocional son pilares inamovibles de nuestro Hospital de Día.
+          </p>
+        </div>
+      </section>
+
+      {/* 3. GESTIÓN ADMINISTRATIVA - JUDITH PONCE */}
+      <section id="administrativo" className="py-24 px-6 bg-white border-y border-slate-100">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+          <div className="order-2 lg:order-1">
+            <div className="inline-flex items-center space-x-2 py-1 px-3 bg-emerald-100 text-emerald-700 text-[10px] font-black rounded-lg mb-6 uppercase tracking-widest">
+              <Users size={12} />
+              <span>Atención Personalizada</span>
+            </div>
+            <h2 className="text-3xl font-black text-slate-900 mb-6 uppercase tracking-tight leading-tight">
+              Gestión Administrativa <br/>
+              <span className="text-emerald-700">Judith Ponce</span>
+            </h2>
+            <p className="text-lg text-slate-600 mb-10 font-medium leading-relaxed">
+              La calidez en el trato es nuestro sello. Judith Ponce centraliza la atención de cada consulta e ingreso, 
+              asegurando un proceso ordenado, ágil y, sobre todo, humano.
+            </p>
+            <div className="bg-[#fdfbf7] p-8 rounded-[2.5rem] border border-slate-100 flex items-center space-x-6 shadow-sm">
+              <div className="w-16 h-16 bg-emerald-700 text-white rounded-full flex items-center justify-center font-black text-xl shadow-lg border-4 border-white">JP</div>
+              <div>
+                <h4 className="text-xl font-bold text-slate-900">Judith Ponce</h4>
+                <div className="flex items-center space-x-4 mt-2">
+                  <div className="flex items-center space-x-2 text-sm text-slate-500 font-bold">
+                    <Clock size={16} className="text-emerald-700" />
+                    <span>Lun a Vie 08:00 - 16:00 hs</span>
                   </div>
                 </div>
-                <div className="flex items-center space-x-3 text-slate-600 text-sm mb-2 font-medium">
-                  <Clock size={16} className="text-indigo-500" />
-                  <span>Horarios de Atención: Lunes a Viernes 08:00 - 17:00hs</span>
-                </div>
-                <p className="text-xs text-slate-500 italic">Nuestro rol es brindarte orden y previsibilidad en cada solicitud.</p>
-              </div>
-              <button className="flex items-center space-x-3 bg-indigo-700 text-white px-8 py-4 rounded-2xl font-bold hover:bg-indigo-800 transition-all shadow-lg shadow-indigo-100">
-                <span>Gestionar con Judith</span>
-                <ArrowRight size={18} />
-              </button>
-            </div>
-            <div className="order-1 lg:order-2">
-              <div className="relative group">
-                <div className="absolute -inset-4 bg-indigo-500/10 rounded-[3rem] blur-2xl group-hover:bg-indigo-500/20 transition-all"></div>
-                <img 
-                  src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800" 
-                  className="relative rounded-[2.5rem] shadow-2xl border border-white"
-                  alt="Gestión Administrativa"
-                />
               </div>
             </div>
+          </div>
+          <div className="order-1 lg:order-2">
+            <img src="https://images.unsplash.com/photo-1576765608596-724a276d5335?auto=format&fit=crop&q=80&w=1200" alt="Admin Judith Ponce" className="rounded-[3rem] shadow-2xl border-8 border-white" />
           </div>
         </div>
       </section>
 
-      {/* 2. Información para la sesión */}
-      <section id="informacion" className="py-24 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-slate-900 mb-4">Información para tu sesión</h2>
-            <p className="text-slate-600 max-w-2xl mx-auto font-medium">Recomendaciones para transitar tu jornada en el Hospital de Día con tranquilidad.</p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                title: 'Preparación',
-                icon: <ShieldCheck size={24} />,
-                items: ['Desayuno ligero', 'Hidratación previa', 'Ropa cómoda'],
-                color: 'bg-emerald-50 text-emerald-700 border-emerald-100'
-              },
-              {
-                title: 'Elementos útiles',
-                icon: <Coffee size={24} />,
-                items: ['Libro o música', 'Manta pequeña', 'Un acompañante'],
-                color: 'bg-amber-50 text-amber-700 border-amber-100'
-              },
-              {
-                title: 'Durante el proceso',
-                icon: <MessageCircle size={24} />,
-                items: ['Escucha tu cuerpo', 'Avisa si hay molestias', 'Paciencia y calma'],
-                color: 'bg-blue-50 text-blue-700 border-blue-100'
-              },
-              {
-                title: 'Post-sesión',
-                icon: <AlertCircle size={24} />,
-                items: ['Reposo relativo', 'Control de fiebre', 'Seguir indicaciones'],
-                color: 'bg-rose-50 text-rose-700 border-rose-100'
-              }
-            ].map((card, i) => (
-              <div key={i} className={`p-8 rounded-[2rem] border ${card.color} flex flex-col h-full shadow-sm`}>
-                <div className="mb-6 p-3 bg-white/60 rounded-2xl w-fit shadow-sm">{card.icon}</div>
-                <h3 className="text-xl font-bold mb-4">{card.title}</h3>
-                <ul className="space-y-3 mt-auto">
-                  {card.items.map((item, idx) => (
-                    <li key={idx} className="flex items-center space-x-2 text-sm font-semibold opacity-80">
-                      <div className="w-1.5 h-1.5 rounded-full bg-current"></div>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Apoyo Emocional */}
-      <section className="py-24 bg-white overflow-hidden">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="bg-rose-50 rounded-[3rem] p-12 md:p-16 relative border border-rose-100 shadow-sm overflow-hidden text-center">
-            <Heart size={80} className="absolute -bottom-8 -right-8 text-rose-200/50 rotate-12" />
-            <h3 className="text-3xl font-black text-rose-900 mb-6">No estás solo en esto.</h3>
-            <p className="text-lg text-rose-800 leading-relaxed font-medium mb-8">
-              Es natural sentir miedo, ansiedad o incertidumbre. Validar tus emociones es el primer paso para transitarlas. 
-              Nuestro equipo de salud no solo atiende tu cuerpo, sino que está aquí para acompañarte, escucharte y sostenerte.
-            </p>
-            <div className="flex items-center justify-center space-x-2 text-rose-900 font-bold uppercase tracking-widest text-xs">
-              <ShieldCheck size={16} />
-              <span>Compromiso Humano y Profesional</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Oncología Staff */}
-      <section id="oncologia" className="py-24 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 space-y-4">
-            <div>
-              <h2 className="text-4xl font-black text-slate-900 mb-4">Equipo de Oncología</h2>
-              <p className="text-slate-600 font-medium max-w-xl">
-                Profesionales dedicados a la excelencia clínica y la cercanía humana. 
-                Los sobreturnos se reservan exclusivamente para emergencias oncológicas.
-              </p>
-            </div>
-            <div className="bg-white px-6 py-3 rounded-2xl border border-slate-200 text-xs font-bold text-slate-500 uppercase tracking-widest">
-              Horarios sujetos a agenda médica
-            </div>
-          </div>
+      {/* 4. SERVICIOS Y ÁREAS */}
+      <section className="py-24 px-6 bg-[#fdfbf7]">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl font-black text-slate-900 mb-16 uppercase text-center tracking-widest">Nuestras Áreas</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {DOCTORS.map((doc, i) => (
-              <div key={i} className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all group">
-                <div className="w-16 h-16 bg-slate-100 rounded-2xl mb-6 flex items-center justify-center text-slate-400 group-hover:bg-indigo-700 group-hover:text-white transition-all">
-                  <UserCircle size={32} />
-                </div>
-                <h4 className="text-xl font-black text-slate-900 mb-1 leading-tight">{doc.name}</h4>
-                <p className="text-sm font-bold text-indigo-600 mb-8 uppercase tracking-wide">{doc.specialty}</p>
-                <button className="w-full py-4 bg-slate-50 text-slate-700 rounded-2xl text-xs font-bold uppercase tracking-widest hover:bg-indigo-700 hover:text-white transition-all">
-                  Solicitar turno
+            {SERVICES.map((s, i) => (
+              <div key={i} className="bg-white p-8 rounded-[2rem] border border-slate-100 hover:shadow-xl transition-all group">
+                <h3 className="text-lg font-black text-slate-900 mb-4">{s.name}</h3>
+                <p className="text-sm text-slate-500 mb-8 font-medium leading-relaxed">{s.desc}</p>
+                <button className="flex items-center space-x-2 text-emerald-700 font-black text-[10px] uppercase tracking-widest hover:translate-x-1 transition-transform">
+                  <span>Ingresar</span>
+                  <ChevronRight size={14} />
                 </button>
               </div>
             ))}
@@ -272,128 +230,165 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* 5. Hospital de Día: Servicios */}
-      <section className="py-24 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="bg-indigo-900 rounded-[3rem] p-12 md:p-20 text-white overflow-hidden relative">
-            <Activity size={200} className="absolute -top-20 -right-20 text-white/5" />
-            <div className="relative z-10 max-w-2xl">
-              <h2 className="text-4xl md:text-5xl font-black mb-8 leading-tight">Servicios de <br />Hospital de Día</h2>
-              <p className="text-indigo-100 text-lg mb-12 leading-relaxed font-medium">
-                Infraestructura y cuidado especializado para tratamientos ambulatorios complejos. 
-                Organizamos cada procedimiento con enfoque en tu seguridad y confort.
-              </p>
-              <div className="grid gap-4 sm:grid-cols-3">
-                {['Quimioterapia', 'Infusiones', 'Hierro'].map((service, i) => (
-                  <button key={i} className="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-3xl hover:bg-white hover:text-indigo-900 transition-all text-left">
-                    <p className="text-sm font-bold uppercase tracking-widest mb-1 opacity-60">Servicio</p>
-                    <p className="text-lg font-black">{service}</p>
-                  </button>
-                ))}
+      {/* 5. PREPARACIÓN PACIENTE */}
+      <section id="paciente" className="py-24 px-6 bg-emerald-900 text-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+            <div className="max-w-2xl">
+              <h2 className="text-3xl font-black mb-6 uppercase tracking-tight">Hospital de Día</h2>
+              <p className="text-emerald-100 text-lg font-medium opacity-80 italic">"Prepararte ayuda a transitar mejor cada sesión."</p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/10 text-[10px] font-black uppercase tracking-[0.2em]">Guía de Preparación</div>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8">
+            <div className="bg-white/5 border border-white/10 p-10 rounded-[3rem]">
+              <div className="w-12 h-12 bg-white text-emerald-900 rounded-2xl flex items-center justify-center mb-8 shadow-xl">
+                <Coffee size={24} />
               </div>
+              <h3 className="text-xl font-black mb-6 uppercase">Sesión</h3>
+              <ul className="space-y-4 text-emerald-100 font-medium text-sm">
+                <li className="flex items-start space-x-3"><div className="w-1.5 h-1.5 bg-emerald-400 rounded-full mt-2 shrink-0"></div><span>Comer liviano (arroz, banana, yogur).</span></li>
+                <li className="flex items-start space-x-3"><div className="w-1.5 h-1.5 bg-emerald-400 rounded-full mt-2 shrink-0"></div><span>Tomar líquidos desde el día anterior.</span></li>
+                <li className="flex items-start space-x-3"><div className="w-1.5 h-1.5 bg-emerald-400 rounded-full mt-2 shrink-0"></div><span>Dormir bien y descansar.</span></li>
+                <li className="flex items-start space-x-3"><div className="w-1.5 h-1.5 bg-emerald-400 rounded-full mt-2 shrink-0"></div><span>Ropa cómoda y abrigo liviano.</span></li>
+              </ul>
+            </div>
+
+            <div className="bg-white/5 border border-white/10 p-10 rounded-[3rem]">
+              <div className="w-12 h-12 bg-white text-emerald-900 rounded-2xl flex items-center justify-center mb-8 shadow-xl">
+                <ShieldCheck size={24} />
+              </div>
+              <h3 className="text-xl font-black mb-6 uppercase">Recomendaciones</h3>
+              <ul className="space-y-4 text-emerald-100 font-medium text-sm">
+                <li className="flex items-start space-x-3"><div className="w-1.5 h-1.5 bg-emerald-400 rounded-full mt-2 shrink-0"></div><span>Evitar perfumes o cremas con olor fuerte.</span></li>
+                <li className="flex items-start space-x-3"><div className="w-1.5 h-1.5 bg-emerald-400 rounded-full mt-2 shrink-0"></div><span>Traer manta liviana personal.</span></li>
+                <li className="flex items-start space-x-3"><div className="w-1.5 h-1.5 bg-emerald-400 rounded-full mt-2 shrink-0"></div><span>Algo para leer o música con auriculares.</span></li>
+                <li className="flex items-start space-x-3"><div className="w-1.5 h-1.5 bg-emerald-400 rounded-full mt-2 shrink-0"></div><span>Llevar estudios previos y carnet.</span></li>
+              </ul>
+            </div>
+
+            <div className="bg-emerald-800 p-10 rounded-[3rem] shadow-2xl flex flex-col justify-center text-center">
+              <Heart size={48} className="mx-auto mb-8 text-emerald-300" />
+              <h3 className="text-xl font-black mb-4">No estás solo/a</h3>
+              <p className="text-sm text-emerald-100 font-medium leading-relaxed">
+                Es normal sentir miedo o ansiedad. Hablar con alguien ayuda. 
+                Nuestro equipo de salud y acompañamiento emocional está aquí para vos.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 6. Salud Mental */}
-      <section id="salud-mental" className="py-24 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="bg-white rounded-[3rem] border border-slate-100 overflow-hidden shadow-xl grid lg:grid-cols-2">
-            <div className="p-12 md:p-16">
-              <div className="p-3 bg-purple-50 text-purple-700 rounded-2xl w-fit mb-8">
-                <Brain size={32} />
+      {/* 6. ONCOLOGÍA STAFF */}
+      <section id="oncologia" className="py-24 px-6 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-20">
+            <h2 className="text-3xl font-black text-slate-900 mb-4 uppercase tracking-tight">Staff de Oncología</h2>
+            <p className="text-slate-500 text-xs font-black uppercase tracking-[0.2em]">Excelencia Médica y Calidez</p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {DOCTORS.map((doc, i) => (
+              <div key={i} className="bg-[#fdfbf7] p-8 rounded-[2.5rem] border border-slate-100 text-center group hover:bg-emerald-50 transition-all">
+                <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 text-slate-300 group-hover:bg-emerald-700 group-hover:text-white transition-all shadow-inner border-4 border-white">
+                  <UserCircle size={40} />
+                </div>
+                <h4 className="text-xl font-black text-slate-900 mb-1">{doc.name}</h4>
+                <p className="text-[10px] font-black text-emerald-700 uppercase tracking-widest mb-10">Médico Oncólogo</p>
+                <button className="w-full py-4 bg-white text-slate-700 rounded-2xl text-[10px] font-black uppercase tracking-widest border border-slate-200 group-hover:bg-emerald-700 group-hover:text-white group-hover:border-emerald-700 transition-all shadow-sm">Pedir Turno</button>
               </div>
-              <h2 className="text-4xl font-black text-slate-900 mb-6 tracking-tight">Salud Mental y Apoyo</h2>
-              <div className="mb-8">
-                <p className="text-sm font-bold text-purple-600 uppercase tracking-widest mb-1">Profesional a cargo</p>
-                <p className="text-2xl font-black text-slate-800">Mgter. Altieri Aufranc</p>
-              </div>
-              <p className="text-slate-600 leading-relaxed mb-10 font-medium">
-                Un acompañamiento terapéutico respetuoso y contenedor para transitar el impacto psicológico del tratamiento. 
-                Integramos diversas herramientas para fortalecer tu resiliencia y bienestar emocional.
+            ))}
+          </div>
+          <div className="mt-16 bg-rose-50 border border-rose-100 p-8 rounded-3xl flex items-start space-x-4 max-w-3xl mx-auto shadow-sm">
+            <AlertCircle size={24} className="text-rose-600 shrink-0" />
+            <div>
+              <p className="text-rose-900 font-black text-sm uppercase tracking-widest mb-2">Aviso Importante</p>
+              <p className="text-rose-800 text-sm font-medium leading-relaxed">
+                Los sobreturnos se otorgan únicamente en caso de <strong>emergencia oncológica</strong>: fiebre alta, dolor intenso o reacciones adversas inmediatas.
               </p>
-              <div className="flex flex-wrap gap-3 mb-12">
-                {['Terapia ACT', 'Musicoterapia', 'Habilidades Sociales'].map((tag, i) => (
-                  <span key={i} className="px-4 py-2 bg-purple-50 text-purple-700 text-xs font-bold rounded-xl border border-purple-100">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <button className="flex items-center space-x-3 bg-purple-700 text-white px-8 py-4 rounded-2xl font-bold hover:bg-purple-800 transition-all shadow-lg shadow-purple-100">
-                <span>Solicitar acompañamiento</span>
-                <ArrowRight size={18} />
-              </button>
-            </div>
-            <div className="bg-purple-50 flex items-center justify-center p-12">
-              <div className="text-center">
-                 <div className="w-32 h-32 bg-white rounded-full border-4 border-purple-200 flex items-center justify-center text-purple-600 mb-8 mx-auto shadow-inner">
-                    <Heart size={48} className="fill-purple-100" />
-                 </div>
-                 <p className="text-purple-900 font-black text-xl italic leading-tight italic">
-                  "El cuidado del alma es <br /> parte de la medicina."
-                 </p>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Información y Turnos: Centralización */}
-      <section className="py-24 bg-indigo-700 text-white">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h3 className="text-4xl font-black mb-8">Información y Turnos</h3>
-          <p className="text-lg text-indigo-100 mb-12 leading-relaxed font-medium">
-            Nuestro portal centraliza todas las solicitudes para optimizar tu tiempo y el de nuestro staff médico. 
-            Todas las derivaciones se realizan de forma segura y ordenada para garantizar una atención de calidad.
+      {/* 8. SALUD MENTAL */}
+      <section id="salud-mental" className="py-24 px-6 bg-[#fdfbf7]">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+          <div className="bg-white p-12 lg:p-20 rounded-[4rem] shadow-xl border border-slate-100">
+            <div className="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mb-8"><Brain size={32} /></div>
+            <h2 className="text-3xl font-black text-slate-900 mb-6 uppercase tracking-tight leading-tight">Salud Mental <br/>y Acompañamiento</h2>
+            <h4 className="text-xl font-bold text-slate-800 mb-4">Mgter. Altieri Aufranc</h4>
+            <p className="text-lg text-slate-600 mb-10 font-medium leading-relaxed">
+              El proceso oncológico requiere un soporte emocional validante. Trabajamos enfoques como Terapia ACT y Musicoterapia 
+              para brindar herramientas de resiliencia al paciente y su familia.
+            </p>
+            <div className="flex flex-wrap gap-2 mb-10">
+              {['Terapia ACT', 'Musicoterapia', 'Acompañamiento'].map((t, i) => (
+                <span key={i} className="px-4 py-2 bg-indigo-50 text-indigo-700 text-[10px] font-black uppercase rounded-xl border border-indigo-100">{t}</span>
+              ))}
+            </div>
+            <button className="bg-indigo-600 text-white px-10 py-5 rounded-2xl font-black shadow-xl hover:bg-indigo-700 transition-all active:scale-95">Solicitar Soporte</button>
+          </div>
+          <div className="bg-indigo-600 text-white p-16 lg:p-24 rounded-[4rem] relative overflow-hidden text-center flex flex-col justify-center items-center h-full min-h-[500px]">
+            <Heart size={300} fill="white" className="absolute opacity-5 -top-10 -right-10" />
+            <div className="relative z-10">
+              <Heart size={64} className="mx-auto mb-10 opacity-30" />
+              <p className="text-4xl font-black italic leading-tight mb-4">"No es solo curar el cuerpo, <br/>es cuidar a la persona."</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 9. FUNDACIÓN */}
+      <section id="fundacion" className="py-24 px-6 bg-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-black text-slate-900 mb-8 uppercase tracking-tight">Fundación Sanatorio Aconcagua</h2>
+          <p className="text-xl text-slate-600 font-medium leading-relaxed mb-12">
+            Nuestra fundación es el brazo de apoyo comunitario. Trabajamos en la educación, 
+            el acompañamiento integral y la creación de redes de contención para que ningún 
+            paciente transite su proceso en soledad.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-            <button className="bg-white text-indigo-700 px-10 py-5 rounded-2xl font-black hover:bg-indigo-50 transition-all shadow-xl flex items-center justify-center space-x-2">
-              <Calendar size={20} />
-              <span>Ver Centros de Derivación</span>
-            </button>
-            <button className="bg-indigo-600 border border-indigo-400 text-white px-10 py-5 rounded-2xl font-black hover:bg-indigo-500 transition-all flex items-center justify-center space-x-2">
-              <ExternalLink size={20} />
-              <span>Preguntas Frecuentes</span>
-            </button>
+          <button className="bg-emerald-700 text-white px-12 py-5 rounded-2xl font-black shadow-2xl hover:bg-emerald-800 transition-all">Conocer la Fundación</button>
+        </div>
+      </section>
+
+      {/* 11. CONTACTO RÁPIDO */}
+      <section className="py-24 px-6 bg-slate-900 text-white">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-12">
+          <div className="flex flex-col items-center text-center p-8 bg-white/5 rounded-[2.5rem] border border-white/10 group hover:bg-emerald-700 transition-all">
+            <Phone size={32} className="mb-6 text-emerald-400 group-hover:text-white" />
+            <h4 className="text-lg font-black mb-2">WhatsApp</h4>
+            <p className="text-slate-400 text-sm font-bold group-hover:text-emerald-100">+54 9 11 0000-0000</p>
+          </div>
+          <div className="flex flex-col items-center text-center p-8 bg-white/5 rounded-[2.5rem] border border-white/10 group hover:bg-emerald-700 transition-all">
+            <Mail size={32} className="mb-6 text-emerald-400 group-hover:text-white" />
+            <h4 className="text-lg font-black mb-2">Email Institucional</h4>
+            <p className="text-slate-400 text-sm font-bold group-hover:text-emerald-100">info@sanatorioaconcagua.com</p>
+          </div>
+          <div className="flex flex-col items-center text-center p-8 bg-white/5 rounded-[2.5rem] border border-white/10 group hover:bg-emerald-700 transition-all">
+            <MapPin size={32} className="mb-6 text-emerald-400 group-hover:text-white" />
+            <h4 className="text-lg font-black mb-2">Ubicación</h4>
+            <p className="text-slate-400 text-sm font-bold group-hover:text-emerald-100">Ciudad, Provincia, Argentina</p>
           </div>
         </div>
       </section>
 
-      {/* Footer Institucional */}
-      <footer className="bg-white border-t border-slate-200 py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-            <div className="lg:col-span-2">
-              <div className="flex items-center space-x-3 mb-6">
-                <Activity size={24} className="text-indigo-700" />
-                <span className="text-xl font-black text-slate-900">Hospital de Día</span>
-              </div>
-              <p className="text-slate-500 text-sm leading-relaxed max-w-sm font-medium">
-                Portal institucional dedicado a la orientación, organización administrativa y acompañamiento emocional del paciente oncológico. No se promete atención inmediata fuera de emergencias clínicas.
-              </p>
-            </div>
-            <div>
-              <h5 className="font-black text-slate-900 uppercase text-xs tracking-widest mb-6">Ubicación y Contacto</h5>
-              <div className="space-y-4 text-sm text-slate-500 font-bold">
-                <p>Sede Central: Lunes a Viernes 08:00 - 20:00hs</p>
-                <p>Gestión Judith Ponce: 09:00 - 17:00hs</p>
-              </div>
-            </div>
-            <div>
-              <h5 className="font-black text-slate-900 uppercase text-xs tracking-widest mb-6">Legal</h5>
-              <div className="space-y-4 text-sm text-slate-500 font-bold">
-                <a href="#" className="hover:text-indigo-700">Privacidad de Datos</a>
-                <a href="#" className="hover:text-indigo-700">Derechos del Paciente</a>
-              </div>
-            </div>
+      {/* FOOTER */}
+      <footer className="py-20 px-6 bg-[#0a1210] text-white/50 text-center">
+        <div className="max-w-4xl mx-auto">
+          <Activity size={40} className="text-emerald-700 mx-auto mb-10" />
+          <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-4">Portal Institucional - Sanatorio Aconcagua</p>
+          <div className="flex justify-center space-x-6 mb-12 text-xs font-bold uppercase tracking-widest">
+            <a href="#" className="hover:text-white">Confidencialidad</a>
+            <a href="#" className="hover:text-white">Derechos del Paciente</a>
+            <a href="#" className="hover:text-white">Contacto</a>
           </div>
-          <div className="pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center text-slate-400 text-xs font-bold uppercase tracking-widest space-y-4 md:space-y-0">
-            <p>© 2024 Centro de Orientación Institucional. Todos los derechos reservados.</p>
-            <div className="flex space-x-6">
-              <a href="#" className="hover:text-indigo-700">Instagram</a>
-              <a href="#" className="hover:text-indigo-700">LinkedIn</a>
-            </div>
+          <p className="text-[9px] max-w-lg mx-auto leading-relaxed">
+            La información brindada en este sitio es de carácter orientativo. 
+            El diagnóstico y tratamiento médico deben ser siempre establecidos por un profesional de la salud matriculado.
+          </p>
+          <div className="mt-16 pt-8 border-t border-white/5">
+            <p className="text-[9px]">© 2024 Sanatorio Aconcagua & Fundación. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>
