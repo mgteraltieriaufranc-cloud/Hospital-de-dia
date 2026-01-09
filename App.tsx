@@ -420,7 +420,7 @@ const App: React.FC = () => {
             El diagnóstico y tratamiento médico deben ser siempre establecidos por un profesional de la salud matriculado.
           </p>
           <div className="mt-16 pt-8 border-t border-white/5">
-            <p className="text-[9px]">© 2026 Sanatorio Aconcagua & Fundación. Todos los derechos reservados.</p>
+            <p className="text-[9px]">© 2026 Sanatorio Aconcagua & Fundación Dubersarsky. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>
