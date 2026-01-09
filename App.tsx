@@ -211,25 +211,8 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. SERVICIOS Y ÁREAS */}
-      <section className="py-24 px-6 bg-[#fdfbf7]">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl font-black text-slate-900 mb-16 uppercase text-center tracking-widest">Nuestras Áreas</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {SERVICES.map((s, i) => (
-              <div key={i} className="bg-white p-8 rounded-[2rem] border border-slate-100 hover:shadow-xl transition-all group">
-                <h3 className="text-lg font-black text-slate-900 mb-4">{s.name}</h3>
-                <p className="text-sm text-slate-500 mb-8 font-medium leading-relaxed">{s.desc}</p>
-                <button className="flex items-center space-x-2 text-emerald-700 font-black text-[10px] uppercase tracking-widest hover:translate-x-1 transition-transform">
-                  <span>Ingresar</span>
-                  <ChevronRight size={14} />
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
+    
+  
       {/* 5. PREPARACIÓN PACIENTE */}
       <section id="paciente" className="py-24 px-6 bg-emerald-900 text-white">
         <div className="max-w-6xl mx-auto">
@@ -295,7 +278,14 @@ const App: React.FC = () => {
                 </div>
                 <h4 className="text-xl font-black text-slate-900 mb-1">{doc.name}</h4>
                 <p className="text-[10px] font-black text-emerald-700 uppercase tracking-widest mb-10">Médico Oncólogo</p>
-                <button className="w-full py-4 bg-white text-slate-700 rounded-2xl text-[10px] font-black uppercase tracking-widest border border-slate-200 group-hover:bg-emerald-700 group-hover:text-white group-hover:border-emerald-700 transition-all shadow-sm">Pedir Turno</button>
+<a
+  href="https://forms.gle/ddstx18jrp8MpjmX8"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="w-full py-4 bg-white text-slate-700 rounded-2xl text-[10px] font-black uppercase tracking-widest border border-slate-200 group-hover:bg-emerald-700 group-hover:text-white group-hover:border-emerald-700 transition-all shadow-sm text-center block"
+>
+  Pedir Turno
+</a>
               </div>
             ))}
           </div>
@@ -325,9 +315,16 @@ const App: React.FC = () => {
             <div className="flex flex-wrap gap-2 mb-10">
               {['Terapia ACT', 'Musicoterapia', 'Acompañamiento'].map((t, i) => (
                 <span key={i} className="px-4 py-2 bg-indigo-50 text-indigo-700 text-[10px] font-black uppercase rounded-xl border border-indigo-100">{t}</span>
-              ))}
+              ))}<a
+  href="https://forms.gle/ddstx18jrp8MpjmX8"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="w-full py-4 bg-white text-slate-700 rounded-2xl text-[10px] font-black uppercase tracking-widest border border-slate-200 group-hover:bg-emerald-700 group-hover:text-white group-hover:border-emerald-700 transition-all shadow-sm text-center block"
+>
+  Pedir Turno
+</a>
+
             </div>
-            <button className="bg-indigo-600 text-white px-10 py-5 rounded-2xl font-black shadow-xl hover:bg-indigo-700 transition-all active:scale-95">Solicitar Soporte</button>
           </div>
           <div className="bg-indigo-600 text-white p-16 lg:p-24 rounded-[4rem] relative overflow-hidden text-center flex flex-col justify-center items-center h-full min-h-[500px]">
             <Heart size={300} fill="white" className="absolute opacity-5 -top-10 -right-10" />
@@ -342,7 +339,7 @@ const App: React.FC = () => {
       {/* 9. FUNDACIÓN */}
       <section id="fundacion" className="py-24 px-6 bg-white">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-black text-slate-900 mb-8 uppercase tracking-tight">Fundación Sanatorio Aconcagua</h2>
+          <h2 className="text-3xl font-black text-slate-900 mb-8 uppercase tracking-tight">Fundación Claudio Dubersarsky</h2>
           <p className="text-xl text-slate-600 font-medium leading-relaxed mb-12">
             Nuestra fundación es el brazo de apoyo comunitario. Trabajamos en la educación, 
             el acompañamiento integral y la creación de redes de contención para que ningún 
@@ -358,17 +355,17 @@ const App: React.FC = () => {
           <div className="flex flex-col items-center text-center p-8 bg-white/5 rounded-[2.5rem] border border-white/10 group hover:bg-emerald-700 transition-all">
             <Phone size={32} className="mb-6 text-emerald-400 group-hover:text-white" />
             <h4 className="text-lg font-black mb-2">WhatsApp</h4>
-            <p className="text-slate-400 text-sm font-bold group-hover:text-emerald-100">+54 9 11 0000-0000</p>
+            <p className="text-slate-400 text-sm font-bold group-hover:text-emerald-100">+54 9 351 869-3409</p>
           </div>
           <div className="flex flex-col items-center text-center p-8 bg-white/5 rounded-[2.5rem] border border-white/10 group hover:bg-emerald-700 transition-all">
             <Mail size={32} className="mb-6 text-emerald-400 group-hover:text-white" />
             <h4 className="text-lg font-black mb-2">Email Institucional</h4>
-            <p className="text-slate-400 text-sm font-bold group-hover:text-emerald-100">info@sanatorioaconcagua.com</p>
+            <p className="text-slate-400 text-sm font-bold group-hover:text-emerald-100">info</p>
           </div>
           <div className="flex flex-col items-center text-center p-8 bg-white/5 rounded-[2.5rem] border border-white/10 group hover:bg-emerald-700 transition-all">
             <MapPin size={32} className="mb-6 text-emerald-400 group-hover:text-white" />
             <h4 className="text-lg font-black mb-2">Ubicación</h4>
-            <p className="text-slate-400 text-sm font-bold group-hover:text-emerald-100">Ciudad, Provincia, Argentina</p>
+            <p className="text-slate-400 text-sm font-bold group-hover:text-emerald-100">Paraná 560 2do piso - Córdoba Capital</p>
           </div>
         </div>
       </section>
@@ -388,7 +385,7 @@ const App: React.FC = () => {
             El diagnóstico y tratamiento médico deben ser siempre establecidos por un profesional de la salud matriculado.
           </p>
           <div className="mt-16 pt-8 border-t border-white/5">
-            <p className="text-[9px]">© 2024 Sanatorio Aconcagua & Fundación. Todos los derechos reservados.</p>
+            <p className="text-[9px]">© 2026 Sanatorio Aconcagua & Fundación. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>
