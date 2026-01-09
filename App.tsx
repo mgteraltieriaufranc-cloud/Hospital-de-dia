@@ -23,7 +23,9 @@ import {
   Phone,
   Mail,
   MapPin,
-  ChevronRight
+  ChevronRight,
+  Facebook,
+  Instagram
 } from 'lucide-react';
 import { getSmartOrientation } from './services/geminiService';
 
@@ -211,8 +213,6 @@ const App: React.FC = () => {
         </div>
       </section>
 
-    
-  
       {/* 5. PREPARACIÓN PACIENTE */}
       <section id="paciente" className="py-24 px-6 bg-emerald-900 text-white">
         <div className="max-w-6xl mx-auto">
@@ -278,14 +278,14 @@ const App: React.FC = () => {
                 </div>
                 <h4 className="text-xl font-black text-slate-900 mb-1">{doc.name}</h4>
                 <p className="text-[10px] font-black text-emerald-700 uppercase tracking-widest mb-10">Médico Oncólogo</p>
-<a
-  href="https://forms.gle/ddstx18jrp8MpjmX8"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="w-full py-4 bg-white text-slate-700 rounded-2xl text-[10px] font-black uppercase tracking-widest border border-slate-200 group-hover:bg-emerald-700 group-hover:text-white group-hover:border-emerald-700 transition-all shadow-sm text-center block"
->
-  Pedir Turno
-</a>
+                <a
+                  href="https://forms.gle/ddstx18jrp8MpjmX8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-4 bg-white text-slate-700 rounded-2xl text-[10px] font-black uppercase tracking-widest border border-slate-200 group-hover:bg-emerald-700 group-hover:text-white group-hover:border-emerald-700 transition-all shadow-sm text-center block"
+                >
+                  Pedir Turno
+                </a>
               </div>
             ))}
           </div>
@@ -315,15 +315,15 @@ const App: React.FC = () => {
             <div className="flex flex-wrap gap-2 mb-10">
               {['Terapia ACT', 'Musicoterapia', 'Acompañamiento'].map((t, i) => (
                 <span key={i} className="px-4 py-2 bg-indigo-50 text-indigo-700 text-[10px] font-black uppercase rounded-xl border border-indigo-100">{t}</span>
-              ))}<a
-  href="https://forms.gle/ddstx18jrp8MpjmX8"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="w-full py-4 bg-white text-slate-700 rounded-2xl text-[10px] font-black uppercase tracking-widest border border-slate-200 group-hover:bg-emerald-700 group-hover:text-white group-hover:border-emerald-700 transition-all shadow-sm text-center block"
->
-  Pedir Turno
-</a>
-
+              ))}
+              <a
+                href="https://forms.gle/ddstx18jrp8MpjmX8"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-4 bg-white text-slate-700 rounded-2xl text-[10px] font-black uppercase tracking-widest border border-slate-200 group-hover:bg-emerald-700 group-hover:text-white group-hover:border-emerald-700 transition-all shadow-sm text-center block mt-6"
+              >
+                Pedir Turno
+              </a>
             </div>
           </div>
           <div className="bg-indigo-600 text-white p-16 lg:p-24 rounded-[4rem] relative overflow-hidden text-center flex flex-col justify-center items-center h-full min-h-[500px]">
@@ -341,11 +341,30 @@ const App: React.FC = () => {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-black text-slate-900 mb-8 uppercase tracking-tight">Fundación Claudio Dubersarsky</h2>
           <p className="text-xl text-slate-600 font-medium leading-relaxed mb-12">
-            Nuestra fundación es el brazo de apoyo comunitario. Trabajamos en la educación, 
-            el acompañamiento integral y la creación de redes de contención para que ningún 
-            paciente transite su proceso en soledad.
+            <strong>Misión:</strong> La Fundación Dr. Claudio Dubersarsky tiene como misión reducir la mortalidad por cáncer mediante la prevención, la docencia y la investigación. 
+            Promueve la formación médica, la concientización comunitaria y el empoderamiento de pacientes.
           </p>
-          <button className="bg-emerald-700 text-white px-12 py-5 rounded-2xl font-black shadow-2xl hover:bg-emerald-800 transition-all">Conocer la Fundación</button>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <a
+              href="https://fundacionclaudiodubersarsky.com.ar/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="bg-emerald-700 text-white px-12 py-5 rounded-2xl font-black shadow-2xl hover:bg-emerald-800 transition-all">
+                Conocer la Fundación
+              </button>
+            </a>
+
+            <a
+              href="https://campanitaescueladepacientes.com.ar/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="bg-white text-emerald-700 border-2 border-emerald-700 px-12 py-5 rounded-2xl font-black shadow-2xl hover:bg-emerald-700 hover:text-white transition-all">
+                Escuela de Pacientes
+              </button>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -360,7 +379,7 @@ const App: React.FC = () => {
           <div className="flex flex-col items-center text-center p-8 bg-white/5 rounded-[2.5rem] border border-white/10 group hover:bg-emerald-700 transition-all">
             <Mail size={32} className="mb-6 text-emerald-400 group-hover:text-white" />
             <h4 className="text-lg font-black mb-2">Email Institucional</h4>
-            <p className="text-slate-400 text-sm font-bold group-hover:text-emerald-100">info</p>
+            <p className="text-slate-400 text-sm font-bold group-hover:text-emerald-100">info@sanatorioaconcagua.com</p>
           </div>
           <div className="flex flex-col items-center text-center p-8 bg-white/5 rounded-[2.5rem] border border-white/10 group hover:bg-emerald-700 transition-all">
             <MapPin size={32} className="mb-6 text-emerald-400 group-hover:text-white" />
@@ -374,7 +393,23 @@ const App: React.FC = () => {
       <footer className="py-20 px-6 bg-[#0a1210] text-white/50 text-center">
         <div className="max-w-4xl mx-auto">
           <Activity size={40} className="text-emerald-700 mx-auto mb-10" />
-          <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-4">Portal Institucional - Sanatorio Aconcagua</p>
+          <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-8">Portal Institucional - Sanatorio Aconcagua</p>
+          
+          {/* REDES SOCIALES */}
+          <div className="flex justify-center space-x-6 mb-12">
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:text-emerald-400 transition-colors">
+              <Instagram size={28} />
+            </a>
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:text-emerald-400 transition-colors">
+              <Facebook size={28} />
+            </a>
+            <a href="https://wa.me/5493518693409" target="_blank" rel="noopener noreferrer" className="text-emerald-600 hover:text-emerald-400 transition-colors">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
+                 <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-11.7 8.38 8.38 0 0 1 3.8.9L21 3z"></path>
+              </svg>
+            </a>
+          </div>
+
           <div className="flex justify-center space-x-6 mb-12 text-xs font-bold uppercase tracking-widest">
             <a href="#" className="hover:text-white">Confidencialidad</a>
             <a href="#" className="hover:text-white">Derechos del Paciente</a>
