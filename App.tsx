@@ -74,8 +74,8 @@ const App: React.FC = () => {
               <Activity size={24} />
             </div>
             <div>
-              <h1 className="text-lg font-black text-slate-900 leading-none">Sanatorio Aconcagua</h1>
-              <p className="text-[10px] font-bold text-emerald-700 uppercase tracking-widest mt-1">Hospital de Día & Fundación</p>
+              <h1 className="text-lg font-black text-slate-900 leading-none">Hospital de Día</h1>
+              <p className="text-[10px] font-bold text-emerald-700 uppercase tracking-widest mt-1">Gestión & Fundación de Apoyo</p>
             </div>
           </div>
           <div className="hidden lg:flex items-center space-x-8 text-[11px] font-black uppercase tracking-widest text-slate-500">
@@ -100,7 +100,7 @@ const App: React.FC = () => {
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight tracking-tight">
               Cuidado integral <br/>
-              <span className="text-emerald-300">Sanatorio Aconcagua.</span>
+              <span className="text-emerald-300">Hospital de Día.</span>
             </h2>
             <p className="text-emerald-100 text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed opacity-90">
               Consultas, turnos y servicios de acompañamiento. <br/>
@@ -108,11 +108,11 @@ const App: React.FC = () => {
             </p>
           </div>
 
-          {/* 12. AUTOMATIZADOR DE RESPUESTAS (ESTILO OPENEVIDENCE) */}
+          {/* 12. AUTOMATIZADOR DE RESPUESTAS */}
           <div className="max-w-3xl mx-auto">
             <div className="flex items-center space-x-2 mb-4 text-emerald-300">
               <BrainCircuit size={18} />
-              <span className="text-xs font-black uppercase tracking-[0.2em]">Consultoría Sanatorio Aconcagua - v3.0</span>
+              <span className="text-xs font-black uppercase tracking-[0.2em]">Consultoría Hospital de Día - v3.0</span>
             </div>
             <form onSubmit={handleSearch} className="relative mb-6">
               <div className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400">
@@ -171,9 +171,9 @@ const App: React.FC = () => {
           </div>
           <h2 className="text-3xl font-black text-slate-900 mb-8 uppercase tracking-tight">Nuestra Misión de Cuidado</h2>
           <p className="text-xl text-slate-600 font-medium leading-relaxed">
-            En el Sanatorio Aconcagua, entendemos que la medicina es técnica pero el cuidado es humano. 
+            En el Hospital de Día, entendemos que la medicina es técnica pero el cuidado es humano. 
             Nuestra labor está centrada en la persona, brindando una atención integral donde el acompañamiento 
-            profesional y emocional son pilares inamovibles de nuestro Hospital de Día.
+            profesional y emocional son pilares inamovibles de nuestro servicio oncológico.
           </p>
         </div>
       </section>
@@ -191,7 +191,7 @@ const App: React.FC = () => {
               <span className="text-emerald-700">Judith Ponce</span>
             </h2>
             <p className="text-lg text-slate-600 mb-10 font-medium leading-relaxed">
-              La calidez en el trato es nuestro sello. Judith Ponce centraliza la atención de cada consulta e ingreso, 
+              La calidez en el trato es nuestro sello. Judith Ponce centraliza la atención de cada consulta e ingreso al Hospital de Día, 
               asegurando un proceso ordenado, ágil y, sobre todo, humano.
             </p>
             <div className="bg-[#fdfbf7] p-8 rounded-[2.5rem] border border-slate-100 flex items-center space-x-6 shadow-sm">
@@ -256,7 +256,7 @@ const App: React.FC = () => {
               <h3 className="text-xl font-black mb-4">No estás solo/a</h3>
               <p className="text-sm text-emerald-100 font-medium leading-relaxed">
                 Es normal sentir miedo o ansiedad. Hablar con alguien ayuda. 
-                Nuestro equipo de salud y acompañamiento emocional está aquí para vos.
+                Nuestro equipo de salud y acompañamiento emocional del Hospital de Día está aquí para vos.
               </p>
             </div>
           </div>
@@ -268,7 +268,7 @@ const App: React.FC = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-3xl font-black text-slate-900 mb-4 uppercase tracking-tight">Staff de Oncología</h2>
-            <p className="text-slate-500 text-xs font-black uppercase tracking-[0.2em]">Excelencia Médica y Calidez</p>
+            <p className="text-slate-500 text-xs font-black uppercase tracking-[0.2em]">Excelencia Médica en el Hospital de Día</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {DOCTORS.map((doc, i) => (
@@ -294,7 +294,7 @@ const App: React.FC = () => {
             <div>
               <p className="text-rose-900 font-black text-sm uppercase tracking-widest mb-2">Aviso Importante</p>
               <p className="text-rose-800 text-sm font-medium leading-relaxed">
-                Los sobreturnos se otorgan únicamente en caso de <strong>emergencia oncológica</strong>: fiebre alta, dolor intenso o reacciones adversas inmediatas.
+                Los sobreturnos en el Hospital de Día se otorgan únicamente en caso de <strong>emergencia oncológica</strong>: fiebre alta, dolor intenso o reacciones adversas inmediatas.
               </p>
             </div>
           </div>
@@ -309,7 +309,7 @@ const App: React.FC = () => {
             <h2 className="text-3xl font-black text-slate-900 mb-6 uppercase tracking-tight leading-tight">Salud Mental <br/>y Acompañamiento</h2>
             <h4 className="text-xl font-bold text-slate-800 mb-4">Mgter. Altieri Aufranc</h4>
             <p className="text-lg text-slate-600 mb-10 font-medium leading-relaxed">
-              El proceso oncológico requiere un soporte emocional validante. Trabajamos enfoques como Terapia ACT y Musicoterapia 
+              El proceso oncológico en nuestro Hospital de Día requiere un soporte emocional validante. Trabajamos enfoques como Terapia ACT y Musicoterapia 
               para brindar herramientas de resiliencia al paciente y su familia.
             </p>
             <div className="flex flex-wrap gap-2 mb-10">
@@ -342,7 +342,7 @@ const App: React.FC = () => {
           <h2 className="text-3xl font-black text-slate-900 mb-8 uppercase tracking-tight">Fundación Claudio Dubersarsky</h2>
           <p className="text-xl text-slate-600 font-medium leading-relaxed mb-12">
             <strong>Misión:</strong> La Fundación Dr. Claudio Dubersarsky tiene como misión reducir la mortalidad por cáncer mediante la prevención, la docencia y la investigación. 
-            Promueve la formación médica, la concientización comunitaria y el empoderamiento de pacientes.
+            Promueve la formación médica, la concientización comunitaria y el empoderamiento de pacientes en conjunto con el Hospital de Día.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <a
@@ -378,13 +378,14 @@ const App: React.FC = () => {
           </div>
           <div className="flex flex-col items-center text-center p-8 bg-white/5 rounded-[2.5rem] border border-white/10 group hover:bg-emerald-700 transition-all">
             <Mail size={32} className="mb-6 text-emerald-400 group-hover:text-white" />
-            <h4 className="text-lg font-black mb-2">Email Institucional</h4>
+            <h4 className="text-lg font-black mb-2">Email Hospital de Día</h4>
             <p className="text-slate-400 text-sm font-bold group-hover:text-emerald-100">info@sanatorioaconcagua.com</p>
           </div>
           <div className="flex flex-col items-center text-center p-8 bg-white/5 rounded-[2.5rem] border border-white/10 group hover:bg-emerald-700 transition-all">
             <MapPin size={32} className="mb-6 text-emerald-400 group-hover:text-white" />
             <h4 className="text-lg font-black mb-2">Ubicación</h4>
-            <p className="text-slate-400 text-sm font-bold group-hover:text-emerald-100">Paraná 560 2do piso - Córdoba Capital</p>
+            <p className="text-slate-400 text-sm font-bold group-hover:text-emerald-100 italic">Sanatorio Aconcagua</p>
+            <p className="text-slate-400 text-xs font-bold group-hover:text-emerald-100">Paraná 560 2do piso - Córdoba Capital</p>
           </div>
         </div>
       </section>
@@ -393,7 +394,7 @@ const App: React.FC = () => {
       <footer className="py-20 px-6 bg-[#0a1210] text-white/50 text-center">
         <div className="max-w-4xl mx-auto">
           <Activity size={40} className="text-emerald-700 mx-auto mb-10" />
-          <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-8">Portal Institucional - Sanatorio Aconcagua</p>
+          <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-8">Portal Institucional - Hospital de Día</p>
           
           {/* REDES SOCIALES */}
           <div className="flex justify-center space-x-6 mb-12">
@@ -420,7 +421,7 @@ const App: React.FC = () => {
             El diagnóstico y tratamiento médico deben ser siempre establecidos por un profesional de la salud matriculado.
           </p>
           <div className="mt-16 pt-8 border-t border-white/5">
-            <p className="text-[9px]">© 2026 Sanatorio Aconcagua & Fundación Dubersarsky. Todos los derechos reservados.</p>
+            <p className="text-[9px]">© 2026 Hospital de Día & Fundación Dubersarsky. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>
