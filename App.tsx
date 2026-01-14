@@ -355,7 +355,7 @@ const App: React.FC = () => {
           <div>
             <div className="w-16 h-16 bg-indigo-600 text-white rounded-2xl flex items-center justify-center mb-8 shadow-xl shadow-indigo-200"><Brain size={32} /></div>
             <h2 className="text-4xl font-black text-slate-900 mb-6 uppercase tracking-tight">Salud Mental</h2>
-            <h4 className="text-2xl font-black text-indigo-700 mb-4">Terapeuta Altieri Aufranc</h4>
+            <h4 className="text-2xl font-black text-indigo-700 mb-4">Mgter. Altieri Aufranc</h4>
             <p className="text-lg text-slate-600 font-medium leading-relaxed mb-10">
               Especialista en Terapia de Aceptación y Compromiso (ACT) y Musicoterapia. 
               El cuidado emocional es una parte integral de nuestro tratamiento oncológico.
