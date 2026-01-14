@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   Heart, 
   FileText, 
@@ -28,7 +28,8 @@ import {
   Instagram,
   Bell,
   X,
-  ChevronDown
+  ChevronDown,
+  Stethoscope
 } from 'lucide-react';
 import { getSmartOrientation } from './services/geminiService';
 
@@ -49,11 +50,21 @@ const SERVICES = [
   { name: 'Conversatorios', desc: 'Espacios de aprendizaje y comunidad.' },
 ];
 
+const QUICK_ACTIONS = [
+  { label: 'Turno Salud Mental', query: '¿Cómo pido turno con la psicóloga Altieri Aufranc?', icon: <Brain size={14}/> },
+  { label: 'Preparación Sesión', query: '¿Qué debo hacer antes de ir a mi sesión de quimioterapia?', icon: <Coffee size={14}/> },
+  { label: 'Staff Médico', query: '¿Quiénes son los oncólogos del hospital y cómo saco turno?', icon: <Stethoscope size={14}/> },
+  { label: 'Horarios Judith', query: '¿En qué horario atiende Judith Ponce en administración?', icon: <Clock size={14}/> },
+];
+
 const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const [aiResponse, setAiResponse] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showAprossModal, setShowAprossModal] = useState(false);
+  
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const searchSectionRef = useRef<HTMLElement>(null);
 
   const handleSearch = async (e?: React.FormEvent, manualQuery?: string) => {
     if (e) e.preventDefault();
@@ -65,6 +76,18 @@ const App: React.FC = () => {
     const response = await getSmartOrientation(finalQuery);
     setAiResponse(response);
     setIsLoading(false);
+
+    // Scroll al resultado si es una acción rápida o manual
+    if (manualQuery || e) {
+      setTimeout(() => {
+        window.scrollTo({ top: searchSectionRef.current?.offsetTop ? searchSectionRef.current.offsetTop - 100 : 0, behavior: 'smooth' });
+      }, 100);
+    }
+  };
+
+  const scrollToSearch = () => {
+    searchSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => searchInputRef.current?.focus(), 800);
   };
 
   return (
@@ -199,7 +222,10 @@ const App: React.FC = () => {
             <a href="#administrativo" className="hover:text-emerald-700">Gestión</a>
             <a href="#paciente" className="hover:text-emerald-700">Preparación</a>
             <a href="#fundacion" className="hover:text-emerald-700">Fundación</a>
-            <button className="bg-emerald-700 text-white px-5 py-2.5 rounded-full hover:bg-emerald-800 transition-all shadow-lg shadow-emerald-100">
+            <button 
+              onClick={scrollToSearch}
+              className="bg-emerald-700 text-white px-5 py-2.5 rounded-full hover:bg-emerald-800 transition-all shadow-lg shadow-emerald-100 active:scale-95"
+            >
               Consultas Rápidas
             </button>
           </div>
@@ -207,7 +233,7 @@ const App: React.FC = () => {
       </nav>
 
       {/* HERO SECTION / IA ASSISTANT */}
-      <header className="bg-emerald-900 pt-20 pb-28 px-6 relative overflow-hidden">
+      <header ref={searchSectionRef} className="bg-emerald-900 pt-20 pb-28 px-6 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white rounded-full blur-[150px] translate-x-1/2 -translate-y-1/2"></div>
         </div>
@@ -228,16 +254,17 @@ const App: React.FC = () => {
           <div className="max-w-3xl mx-auto">
             <div className="flex items-center space-x-2 mb-4 text-emerald-300">
               <BrainCircuit size={18} />
-              <span className="text-xs font-black uppercase tracking-[0.2em]">Consultoría Hospital de Día - v3.0</span>
+              <span className="text-xs font-black uppercase tracking-[0.2em]">¿Cómo podemos ayudarte hoy?</span>
             </div>
-            <form onSubmit={handleSearch} className="relative mb-6">
+            <form onSubmit={handleSearch} className="relative mb-4">
               <div className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400">
                 <Search size={22} />
               </div>
               <input
+                ref={searchInputRef}
                 type="text"
-                placeholder="¿En qué podemos ayudarte? (Turnos, Preparación, PAMI...)"
-                className="w-full pl-16 pr-44 py-6 bg-white border-none rounded-2xl shadow-2xl text-lg font-medium focus:ring-4 focus:ring-emerald-500/20 focus:outline-none"
+                placeholder="¿qué necesitas encontrar hoy?"
+                className="w-full pl-16 pr-44 py-6 bg-white border-none rounded-2xl shadow-2xl text-lg font-medium focus:ring-4 focus:ring-emerald-500/20 focus:outline-none placeholder:text-slate-400"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
@@ -251,12 +278,29 @@ const App: React.FC = () => {
               </button>
             </form>
 
+            {/* QUICK ACTION CHIPS */}
+            <div className="flex flex-wrap gap-2 mb-8 justify-center">
+              {QUICK_ACTIONS.map((action, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    setQuery(action.query);
+                    handleSearch(undefined, action.query);
+                  }}
+                  className="flex items-center space-x-2 bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-2 rounded-full text-white text-[10px] font-black uppercase tracking-widest transition-all"
+                >
+                  {action.icon}
+                  <span>{action.label}</span>
+                </button>
+              ))}
+            </div>
+
             {aiResponse && (
               <div className="bg-white rounded-[2.5rem] shadow-2xl border border-slate-200 overflow-hidden animate-in fade-in slide-in-from-bottom-4">
                 <div className="bg-slate-50 px-8 py-4 border-b border-slate-100 flex items-center justify-between">
                   <div className="flex items-center space-x-2 text-emerald-700 font-black text-[10px] uppercase tracking-widest">
                     <BookOpen size={14} />
-                    <span>Informe de Orientación Institucional</span>
+                    <span>Guía de Navegación del Hospital</span>
                   </div>
                   <button onClick={() => setAiResponse(null)} className="text-slate-400 hover:text-slate-600 transition-colors">
                     <AlertCircle size={18} />
@@ -269,7 +313,7 @@ const App: React.FC = () => {
                   <div className="mt-8 pt-8 border-t border-slate-100 flex items-center justify-between">
                     <div className="flex items-center space-x-2 text-[10px] font-black text-slate-400 uppercase italic">
                       <ShieldCheck size={14} className="text-emerald-500" />
-                      <span>Requiere correlación clínica con su oncólogo.</span>
+                      <span>Consulta orientativa basada en el contenido de esta página.</span>
                     </div>
                   </div>
                 </div>
