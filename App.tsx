@@ -21,7 +21,13 @@ import {
   ClipboardList,
   CheckCircle2,
   School,
-  HandHelping
+  HandHelping,
+  FileText,
+  Search,
+  Mail,
+  AlertCircle,
+  Info,
+  Check
 } from 'lucide-react';
 
 // --- CONSTANTES ---
@@ -226,7 +232,7 @@ const App: React.FC = () => {
               <Activity size={48} />
             </div>
           </div>
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-6 uppercase tracking-tight">HOSPITAL DE DÍA</h2>
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-6 uppercase tracking-tight leading-tight">HOSPITAL DE DÍA</h2>
           <p className="text-emerald-100 text-lg mb-12 opacity-90 max-w-2xl mx-auto font-medium italic">"Acepta las cosas que no puedes cambiar, ten el valor de cambiar las cosas que puedes y ten la sabiduría para conocer la diferencia".</p>
           
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3 max-w-5xl mx-auto mb-16">
@@ -357,7 +363,7 @@ const App: React.FC = () => {
           <div>
             <div className="w-16 h-16 bg-indigo-600 text-white rounded-2xl flex items-center justify-center mb-8 shadow-xl shadow-indigo-200"><Brain size={32} /></div>
             <h2 className="text-4xl font-black text-slate-900 mb-6 uppercase tracking-tight">Salud Mental</h2>
-            <h4 className="text-2xl font-black text-indigo-700 mb-4">Mgter. Altieri Aufranc</h4>
+            <h4 className="text-2xl font-black text-indigo-700 mb-4">Mgter. Altieri Auf Franc</h4>
             <p className="text-lg text-slate-600 font-medium leading-relaxed mb-10">
               Especialista en Terapia de Aceptación y Compromiso (ACT) y Musicoterapia. 
               El cuidado emocional es una parte integral de nuestro tratamiento oncológico.
@@ -371,26 +377,107 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* SECCIÓN APROSS */}
-      <section ref={aprossRef} className="py-24 px-6 bg-white border-y border-slate-100 scroll-mt-20">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex items-center space-x-4 mb-10 text-emerald-700">
-            <Bell size={32} className="animate-bounce" />
-            <h2 className="text-3xl font-black uppercase tracking-tight">Empadronamiento APROSS</h2>
-          </div>
-          <div className="bg-white rounded-[3rem] shadow-xl border border-emerald-100 p-12 md:p-16">
-            <p className="text-lg text-slate-600 font-medium mb-12 leading-relaxed">
-              Es vital estar empadronado para recibir los medicamentos en tiempo y forma. 
-              Recuerda realizar el trámite a través de "Mi Portal APROSS" cargando los informes médicos actualizados.
-            </p>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="p-8 bg-slate-50 rounded-3xl border border-slate-100">
-                <span className="text-xs font-black text-emerald-700 uppercase tracking-widest block mb-4">Paso 1</span>
-                <p className="font-bold text-slate-900">Ingresar a la web oficial con CIDI o credencial.</p>
+      {/* SECCIÓN APROSS - GUÍA DETALLADA Y HUMANIZADA */}
+      <section ref={aprossRef} className="py-24 px-6 bg-[#f8fafc] border-y border-slate-200 scroll-mt-20">
+        <div className="max-w-5xl mx-auto">
+          {/* Encabezado de Sección */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-16">
+            <div className="flex items-center space-x-5">
+              <div className="w-16 h-16 bg-emerald-600 text-white rounded-3xl flex items-center justify-center shadow-xl shadow-emerald-100">
+                <FileText size={32} />
               </div>
-              <div className="p-8 bg-emerald-50 rounded-3xl border border-emerald-100">
-                <span className="text-xs font-black text-emerald-700 uppercase tracking-widest block mb-4">Paso 2</span>
-                <p className="font-bold text-slate-900 text-emerald-900">Adjuntar pedido médico y estudios de diagnóstico.</p>
+              <div>
+                <h2 className="text-4xl font-black text-slate-900 uppercase tracking-tight leading-none">Empadronamiento<br/><span className="text-emerald-600">Online APROSS</span></h2>
+              </div>
+            </div>
+            <div className="bg-emerald-50 px-6 py-3 rounded-2xl border border-emerald-100">
+              <p className="text-[10px] font-black text-emerald-800 uppercase tracking-widest flex items-center">
+                <Info size={14} className="mr-2" /> Trámite Obligatorio para Medicación
+              </p>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-10">
+            {/* Columna Izquierda: Introducción y Pasos */}
+            <div className="lg:col-span-2 space-y-8">
+              <div className="prose prose-slate max-w-none">
+                <p className="text-lg text-slate-600 leading-relaxed font-medium">
+                  Entendemos que los trámites administrativos pueden sumar estrés en momentos delicados. Por eso, hemos preparado esta guía sencilla para acompañarte en el proceso de **Empadronamiento Online**. Este paso es vital para que APROSS autorice y entregue tu medicación en tiempo y forma. 🌱
+                </p>
+              </div>
+
+              {/* El Paso a Paso */}
+              <div className="space-y-4">
+                <h3 className="text-xl font-black text-slate-900 uppercase tracking-tight flex items-center">
+                  <Search size={20} className="mr-3 text-emerald-600" /> Paso a paso del trámite
+                </h3>
+                
+                {[
+                  { title: "Ingreso al Portal", desc: "Accedé a 'Mi Portal APROSS' utilizando tu CIDI (Ciudadano Digital) o con tu número de credencial y clave." },
+                  { title: "Selección de Trámite", desc: "Navegá hasta la sección de 'Empadronamiento' o 'Carga de documentación para planes especiales'." },
+                  { title: "Carga de Datos", desc: "Completá el formulario con tus datos actualizados. Es fundamental que el teléfono y mail sean correctos." },
+                  { title: "Subida de Documentación", desc: "Adjuntá fotos o PDFs claros de tu pedido médico y estudios diagnósticos. No te preocupes si falta algo; el sistema te avisará." }
+                ].map((step, i) => (
+                  <div key={i} className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-sm flex items-start space-x-6 hover:border-emerald-200 transition-colors group">
+                    <span className="w-10 h-10 bg-slate-50 text-slate-400 font-black flex items-center justify-center rounded-xl group-hover:bg-emerald-600 group-hover:text-white transition-all shrink-0">
+                      {i + 1}
+                    </span>
+                    <div>
+                      <h4 className="font-black text-slate-900 uppercase text-xs tracking-widest mb-2">{step.title}</h4>
+                      <p className="text-slate-500 text-sm leading-relaxed">{step.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Columna Derecha: Estados y Consejos */}
+            <div className="space-y-8">
+              {/* Estados del Trámite */}
+              <div className="bg-slate-900 text-white rounded-[3rem] p-10 shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16"></div>
+                <h3 className="text-lg font-black uppercase tracking-tight mb-8 flex items-center">
+                  <Activity size={20} className="mr-3 text-emerald-400" /> Estados del Trámite
+                </h3>
+                <div className="space-y-6">
+                  {[
+                    { label: "Pendiente", color: "bg-amber-400", desc: "Recibido, esperando revisión médica." },
+                    { label: "Observado", color: "bg-rose-400", desc: "Falta un dato o estudio. ¡Revisá tu mail!" },
+                    { label: "Aprobado", color: "bg-emerald-400", desc: "Documentación correcta, en etapa final." },
+                    { label: "Empadronado", color: "bg-blue-400", desc: "¡Listo! Ya podés retirar tu medicación." }
+                  ].map((status, i) => (
+                    <div key={i} className="flex items-start space-x-4">
+                      <div className={`w-3 h-3 rounded-full mt-1.5 shrink-0 ${status.color}`}></div>
+                      <div>
+                        <p className="font-black text-[10px] uppercase tracking-widest mb-1">{status.label}</p>
+                        <p className="text-white/60 text-[11px] leading-relaxed italic">{status.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bloque: ¿Qué pasa si es Observado? */}
+              <div className="bg-rose-50 border border-rose-100 p-8 rounded-[2.5rem]">
+                <div className="flex items-center space-x-3 mb-4 text-rose-700">
+                  <AlertCircle size={24} />
+                  <h4 className="font-black uppercase text-xs tracking-widest">¿Trámite Observado?</h4>
+                </div>
+                <p className="text-rose-900/70 text-sm leading-relaxed mb-6 font-medium">
+                  Si tu trámite figura como **Observado**, no entres en pánico. Significa que APROSS necesita que vuelvas a subir un estudio más claro o un pedido médico con firma actualizada. 
+                </p>
+                <div className="flex items-center text-rose-700 text-[10px] font-black uppercase tracking-widest">
+                  <Mail size={14} className="mr-2" /> Recibirás un mail explicativo
+                </div>
+              </div>
+
+              {/* Mensaje Final de Acompañamiento */}
+              <div className="bg-indigo-600 p-10 rounded-[3rem] text-white shadow-xl shadow-indigo-100 text-center">
+                <Heart size={40} className="mx-auto mb-6 text-indigo-300" />
+                <p className="text-sm font-bold leading-relaxed mb-8 italic">
+                  "Nuestro equipo en el Sanatorio está para orientarte. Si el portal te resulta difícil, recordá que podés consultarnos para que revisemos juntos tus papeles."
+                </p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-indigo-200">Estamos con vos en cada paso.</p>
               </div>
             </div>
           </div>
@@ -403,7 +490,6 @@ const App: React.FC = () => {
           <Activity size={48} className="text-emerald-700 mx-auto mb-10" />
           <p className="text-[12px] font-black uppercase tracking-[0.4em] mb-12">Hospital de Día & Fundación Claudio Dubersarsky</p>
           
-          {/* BOTONES INSTITUCIONALES SOLICITADOS */}
           <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mb-16">
             <button 
               onClick={() => window.open("https://fundacionclaudiodubersarsky.com.ar/", "_blank")}
