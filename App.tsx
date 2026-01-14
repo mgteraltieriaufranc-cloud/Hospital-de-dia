@@ -19,7 +19,9 @@ import {
   Bell,
   MapPin,
   ClipboardList,
-  CheckCircle2
+  CheckCircle2,
+  School,
+  HandHelping
 } from 'lucide-react';
 
 // --- CONSTANTES ---
@@ -399,8 +401,32 @@ const App: React.FC = () => {
       <footer className="py-24 px-6 bg-[#0a1210] text-white/50 text-center">
         <div className="max-w-5xl mx-auto">
           <Activity size={48} className="text-emerald-700 mx-auto mb-10" />
-          <p className="text-[12px] font-black uppercase tracking-[0.4em] mb-10">Hospital de Día & Fundación Claudio Dubersarsky</p>
-          <div className="mt-20 pt-10 border-t border-white/5 text-[10px] tracking-widest font-bold uppercase">© 2026 HOSPITAL DE DÍA. SANATORIO ACONCAGUA.</div>
+          <p className="text-[12px] font-black uppercase tracking-[0.4em] mb-12">Hospital de Día & Fundación Claudio Dubersarsky</p>
+          
+          {/* BOTONES INSTITUCIONALES SOLICITADOS */}
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mb-16">
+            <button 
+              onClick={() => window.open("https://fundacionclaudiodubersarsky.com.ar/", "_blank")}
+              className="flex items-center space-x-3 bg-white/5 hover:bg-white/10 border border-white/10 px-8 py-4 rounded-2xl transition-all group min-w-[280px] justify-center"
+            >
+              <HandHelping size={20} className="text-emerald-500" />
+              <span className="text-[10px] font-black text-white uppercase tracking-widest">Fundación Claudio Dubersarsky</span>
+              <ExternalLink size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+            </button>
+            
+            <button 
+              onClick={() => window.open("https://campanitaescueladepacientes.com.ar/", "_blank")}
+              className="flex items-center space-x-3 bg-white/5 hover:bg-white/10 border border-white/10 px-8 py-4 rounded-2xl transition-all group min-w-[280px] justify-center"
+            >
+              <School size={20} className="text-blue-400" />
+              <span className="text-[10px] font-black text-white uppercase tracking-widest">Campanita Escuela de Pacientes</span>
+              <ExternalLink size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+            </button>
+          </div>
+
+          <div className="pt-10 border-t border-white/5 text-[10px] tracking-widest font-bold uppercase">
+            © 2026 HOSPITAL DE DÍA. SANATORIO ACONCAGUA.
+          </div>
         </div>
       </footer>
     </div>
