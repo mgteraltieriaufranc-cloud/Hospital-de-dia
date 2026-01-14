@@ -227,7 +227,7 @@ const App: React.FC = () => {
             </div>
           </div>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-6 uppercase tracking-tight">HOSPITAL DE DÍA</h2>
-          <p className="text-emerald-100 text-lg mb-12 opacity-90 max-w-2xl mx-auto font-medium italic">"Acepta las cosas que no puedes cambiar, ten el valor de cambiar las cosas que puedes y ten la sabiduría para conocer la diferencia.</p>
+          <p className="text-emerald-100 text-lg mb-12 opacity-90 max-w-2xl mx-auto font-medium italic">"Acepta las cosas que no puedes cambiar, ten el valor de cambiar las cosas que puedes y ten la sabiduría para conocer la diferencia".</p>
           
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3 max-w-5xl mx-auto mb-16">
             {QUICK_ACTIONS.map((action, idx) => (
