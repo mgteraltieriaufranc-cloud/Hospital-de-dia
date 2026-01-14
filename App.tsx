@@ -40,21 +40,12 @@ const DOCTORS = [
   { name: 'Dra. Miranda', specialty: 'Oncología Clínica' },
 ];
 
-const SERVICES = [
-  { name: 'PAMI', desc: 'Gestión y atención especializada para afiliados.' },
-  { name: 'Obras Sociales', desc: 'Convenios con principales prestadoras.' },
-  { name: 'Turnos Oncología', desc: 'Agenda médica programada.' },
-  { name: 'Hematología', desc: 'Tratamientos onco-hematológicos.' },
-  { name: 'Hospital de Día', desc: 'Infusiones y cuidados de sesión.' },
-  { name: 'Salud Mental', desc: 'Apoyo emocional especializado.' },
-  { name: 'Conversatorios', desc: 'Espacios de aprendizaje y comunidad.' },
-];
-
 const QUICK_ACTIONS = [
-  { label: 'Turno Salud Mental', query: '¿Cómo pido turno con la psicóloga Altieri Aufranc?', icon: <Brain size={14}/> },
+  { label: 'Horarios Judith', query: '¿En qué horario atiende Judith Ponce en administración?', icon: <Clock size={14}/> },
+  { label: 'Hospital de Día', query: '¿Qué servicios ofrece el Hospital de Día y cómo funciona?', icon: <Activity size={14}/> },
   { label: 'Preparación Sesión', query: '¿Qué debo hacer antes de ir a mi sesión de quimioterapia?', icon: <Coffee size={14}/> },
   { label: 'Staff Médico', query: '¿Quiénes son los oncólogos del hospital y cómo saco turno?', icon: <Stethoscope size={14}/> },
-  { label: 'Horarios Judith', query: '¿En qué horario atiende Judith Ponce en administración?', icon: <Clock size={14}/> },
+  { label: 'Salud Mental', query: '¿Cómo pido turno con el Terapeuta Altieri Aufranc?', icon: <Brain size={14}/> },
 ];
 
 const App: React.FC = () => {
@@ -77,10 +68,15 @@ const App: React.FC = () => {
     setAiResponse(response);
     setIsLoading(false);
 
-    // Scroll al resultado si es una acción rápida o manual
+    // Scroll al resultado para facilitar la lectura
     if (manualQuery || e) {
       setTimeout(() => {
-        window.scrollTo({ top: searchSectionRef.current?.offsetTop ? searchSectionRef.current.offsetTop - 100 : 0, behavior: 'smooth' });
+        const yOffset = -100;
+        const element = searchSectionRef.current;
+        if (element) {
+          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
       }, 100);
     }
   };
@@ -93,6 +89,22 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#fdfbf7] flex flex-col selection:bg-emerald-100 relative">
       
+      {/* LUZ INTERMITENTE PAMI PRESTADORES (TOP LEFT) */}
+      <div className="fixed top-24 left-6 z-[60] flex items-center">
+        <a 
+          href="https://prestadores.pami.org.ar/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="group flex items-center space-x-3 bg-white border border-orange-100 px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5"
+        >
+          <span className="relative flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
+          </span>
+          <span className="text-[10px] font-black text-orange-700 uppercase tracking-widest">PAMI Prestadores</span>
+        </a>
+      </div>
+
       {/* LUZ INTERMITENTE NOVEDADES APROSS (TOP RIGHT) */}
       <div className="fixed top-24 right-6 z-[60] flex items-center">
         <button 
@@ -254,7 +266,7 @@ const App: React.FC = () => {
           <div className="max-w-3xl mx-auto">
             <div className="flex items-center space-x-2 mb-4 text-emerald-300">
               <BrainCircuit size={18} />
-              <span className="text-xs font-black uppercase tracking-[0.2em]">¿Cómo podemos ayudarte hoy?</span>
+              <span className="text-xs font-black uppercase tracking-[0.2em]">Asistente de Navegación Directa</span>
             </div>
             <form onSubmit={handleSearch} className="relative mb-4">
               <div className="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400">
@@ -263,7 +275,7 @@ const App: React.FC = () => {
               <input
                 ref={searchInputRef}
                 type="text"
-                placeholder="¿qué necesitas encontrar hoy?"
+                placeholder="¿que necesitas encontrar hoy?"
                 className="w-full pl-16 pr-44 py-6 bg-white border-none rounded-2xl shadow-2xl text-lg font-medium focus:ring-4 focus:ring-emerald-500/20 focus:outline-none placeholder:text-slate-400"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -300,7 +312,7 @@ const App: React.FC = () => {
                 <div className="bg-slate-50 px-8 py-4 border-b border-slate-100 flex items-center justify-between">
                   <div className="flex items-center space-x-2 text-emerald-700 font-black text-[10px] uppercase tracking-widest">
                     <BookOpen size={14} />
-                    <span>Guía de Navegación del Hospital</span>
+                    <span>Respuesta del Facilitador</span>
                   </div>
                   <button onClick={() => setAiResponse(null)} className="text-slate-400 hover:text-slate-600 transition-colors">
                     <AlertCircle size={18} />
@@ -313,7 +325,7 @@ const App: React.FC = () => {
                   <div className="mt-8 pt-8 border-t border-slate-100 flex items-center justify-between">
                     <div className="flex items-center space-x-2 text-[10px] font-black text-slate-400 uppercase italic">
                       <ShieldCheck size={14} className="text-emerald-500" />
-                      <span>Consulta orientativa basada en el contenido de esta página.</span>
+                      <span>Usa las secciones indicadas para más información.</span>
                     </div>
                   </div>
                 </div>
@@ -467,10 +479,10 @@ const App: React.FC = () => {
           <div className="bg-white p-12 lg:p-20 rounded-[4rem] shadow-xl border border-slate-100">
             <div className="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mb-8"><Brain size={32} /></div>
             <h2 className="text-3xl font-black text-slate-900 mb-6 uppercase tracking-tight leading-tight">Salud Mental <br/>y Acompañamiento</h2>
-            <h4 className="text-xl font-bold text-slate-800 mb-4">Mgter. Altieri Aufranc</h4>
+            <h4 className="text-xl font-bold text-slate-800 mb-4">Terapeuta Altieri Aufranc</h4>
             <p className="text-lg text-slate-600 mb-10 font-medium leading-relaxed">
               El proceso oncológico en nuestro Hospital de Día requiere un soporte emocional validante. Trabajamos enfoques como Terapia ACT y Musicoterapia 
-              para brindar herramientas de resiliencia al paciente y su familia.
+              para brindar herramientas de resiliencia al paciente y su familia de la mano del Terapeuta Altieri Aufranc.
             </p>
             <div className="flex flex-wrap gap-2 mb-10">
               {['Terapia ACT', 'Musicoterapia', 'Acompañamiento'].map((t, i) => (
