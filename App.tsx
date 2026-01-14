@@ -255,27 +255,24 @@ const App: React.FC = () => {
 
       {/* SECCIÓN ADMINISTRACIÓN */}
       <section ref={adminRef} className="py-24 px-6 bg-white scroll-mt-20">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-          <div className="bg-[#fdfbf7] p-12 rounded-[4rem] border border-slate-100 shadow-sm">
-            <div className="w-16 h-16 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center mb-10"><Clock size={32} /></div>
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="bg-[#fdfbf7] p-12 md:p-16 rounded-[4rem] border border-slate-100 shadow-sm inline-block w-full">
+            <div className="w-16 h-16 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center mb-10 mx-auto"><Clock size={32} /></div>
             <h2 className="text-3xl font-black text-slate-900 mb-4 uppercase tracking-tight">Administración</h2>
             <h4 className="text-2xl font-black text-emerald-700 mb-8">Judith Ponce</h4>
-            <ul className="space-y-6">
+            <ul className="space-y-6 flex flex-col items-center">
               <li className="flex items-center space-x-4">
                 <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm text-emerald-600"><Clock size={18} /></div>
                 <p className="font-bold text-slate-700">Lunes a Viernes: 08:00 a 16:00 hs</p>
               </li>
               <li className="flex items-center space-x-4">
                 <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm text-emerald-600"><MapPin size={18} /></div>
-                <p className="font-bold text-slate-700">Planta Baja - Admisión Hospital de Día</p>
+                <p className="font-bold text-slate-700">Segundo Piso - Admisión Hospital de Día</p>
               </li>
             </ul>
-            <div className="mt-10 p-6 bg-white rounded-3xl border border-emerald-50 text-slate-500 font-medium text-sm leading-relaxed italic">
+            <div className="mt-10 p-6 bg-white rounded-3xl border border-emerald-50 text-slate-500 font-medium text-sm leading-relaxed italic max-w-md mx-auto">
               "Judith gestiona todos los turnos del staff médico y las autorizaciones para el Hospital de Día."
             </div>
-          </div>
-          <div>
-            <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=1200" alt="Gestión" className="rounded-[4rem] shadow-2xl" />
           </div>
         </div>
       </section>
