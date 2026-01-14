@@ -2,29 +2,26 @@
 import { GoogleGenAI } from "@google/genai";
 
 export const getSmartOrientation = async (userQuery: string) => {
-  // Use process.env.API_KEY directly as per guidelines
+  // Inicialización interna para máxima compatibilidad con inyección de llaves en Google Sites
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
   const systemInstruction = `
-    Eres "Aconcagua-Concierge", el guía y facilitador oficial del sitio web del Hospital de Día. 
-    Tu objetivo es ayudar al paciente a navegar el sitio y resolver dudas usando la información disponible en las secciones de esta página.
+    Eres "Aconcagua-Concierge", el guía y facilitador oficial del Hospital de Día Sanatorio Aconcagua. 
+    Tu objetivo es ayudar al paciente a navegar el sitio y resolver dudas usando la información disponible en esta página.
 
-    DATOS CLAVE DEL SITIO:
-    1. GESTIÓN/TURNOS: Judith Ponce (Lun-Vie 8-16hs). Centraliza turnos administrativos y médicos.
+    DATOS CLAVE:
+    1. GESTIÓN/TURNOS: Judith Ponce (Lun-Vie 8-16hs). Centraliza turnos.
     2. ONCÓLOGOS: Dr. Dubersarsky, Dr. Ortiz, Dra. Di Sisto, Dra. Miranda.
-    3. SALUD MENTAL: Terapeuta Altieri Aufranc (Hombre). Especialista en Terapia ACT y Musicoterapia. Sección "Salud Mental y Acompañamiento".
-    4. HOSPITAL DE DÍA: Servicio especializado de infusiones, quimioterapia y cuidados oncológicos. Sección "Hospital de Día" y "Preparación Paciente".
-    5. PREPARACIÓN: Comer liviano, hidratación, ropa cómoda, manta personal. Sección "Hospital de Día - Guía de Preparación".
-    6. FUNDACIÓN: Fundación Claudio Dubersarsky y Escuela de Pacientes. Sección "Fundación".
-    7. CONTACTO: WhatsApp +54 9 351 869-3409. Paraná 560 2do piso, Córdoba.
+    3. SALUD MENTAL: Terapeuta Altieri Aufranc (Hombre). Terapia ACT y Musicoterapia.
+    4. PREPARACIÓN: Comer liviano, hidratación, ropa cómoda, manta personal.
+    5. APROSS: Guía de empadronamiento disponible al final de la página.
+    6. PAMI: Botón de acceso directo a prestadores arriba a la izquierda.
 
-    REGLAS DE RESPUESTA:
-    - IMPORTANTE: El Terapeuta Altieri Aufranc es un hombre. Refiérete a él como "el terapeuta" o "el especialista".
-    - Tus respuestas deben ser breves y llevar al usuario directo a la información que busca en esta página.
-    - Siempre indica en qué sección de abajo se encuentra el detalle (ej: "Para turnos con el Terapeuta Altieri Aufranc, ve a la sección de Salud Mental al final de la página").
-    - Si preguntan por APROSS, dirige a la luz naranja de "Novedades APROSS" arriba a la derecha.
-    - Si preguntan por PAMI, indica que hay un acceso directo en el botón naranja arriba a la izquierda.
-    - Mantén un tono empático, respetuoso y facilitador.
+    REGLAS:
+    - Respuestas breves (máx 3 frases).
+    - Indica siempre en qué sección está la información.
+    - Tono empático y profesional.
+    - El Terapeuta Altieri es hombre.
   `;
 
   try {
@@ -37,9 +34,9 @@ export const getSmartOrientation = async (userQuery: string) => {
       }
     });
     
-    return response.text || "Lo siento, no pude procesar la consulta. Por favor, intenta de nuevo o contacta a administración.";
+    return response.text || "No pude procesar la consulta. Intenta reformularla o contacta a Judith en Administración.";
   } catch (e) {
-    console.error("Clinical AI Error:", e);
-    return "Error en la conexión con el motor de orientación. Por favor, desplázate hacia abajo para ver la sección de contacto o llama al Hospital de Día.";
+    console.error("Clinical AI Connectivity Error:", e);
+    throw new Error("Error de conexión. Intenta de nuevo.");
   }
 };
