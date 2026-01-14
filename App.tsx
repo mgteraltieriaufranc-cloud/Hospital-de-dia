@@ -25,7 +25,10 @@ import {
   MapPin,
   ChevronRight,
   Facebook,
-  Instagram
+  Instagram,
+  Bell,
+  X,
+  ChevronDown
 } from 'lucide-react';
 import { getSmartOrientation } from './services/geminiService';
 
@@ -50,6 +53,7 @@ const App: React.FC = () => {
   const [query, setQuery] = useState('');
   const [aiResponse, setAiResponse] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showAprossModal, setShowAprossModal] = useState(false);
 
   const handleSearch = async (e?: React.FormEvent, manualQuery?: string) => {
     if (e) e.preventDefault();
@@ -64,8 +68,120 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#fdfbf7] flex flex-col selection:bg-emerald-100">
+    <div className="min-h-screen bg-[#fdfbf7] flex flex-col selection:bg-emerald-100 relative">
       
+      {/* LUZ INTERMITENTE NOVEDADES APROSS (TOP RIGHT) */}
+      <div className="fixed top-24 right-6 z-[60] flex items-center">
+        <button 
+          onClick={() => setShowAprossModal(true)}
+          className="group flex items-center space-x-3 bg-white border border-orange-100 px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5"
+        >
+          <span className="relative flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
+          </span>
+          <span className="text-[10px] font-black text-orange-700 uppercase tracking-widest">Novedades APROSS</span>
+        </button>
+      </div>
+
+      {/* MODAL APROSS */}
+      {showAprossModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-white w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-[2.5rem] shadow-2xl relative animate-in zoom-in-95 duration-300">
+            <button 
+              onClick={() => setShowAprossModal(false)}
+              className="absolute top-6 right-6 p-2 bg-slate-50 rounded-full text-slate-400 hover:text-slate-600 transition-colors"
+            >
+              <X size={20} />
+            </button>
+            
+            <div className="p-10 md:p-14">
+              <div className="flex items-center space-x-3 text-orange-600 mb-6">
+                <Bell size={24} />
+                <span className="text-xs font-black uppercase tracking-[0.2em]">Guía para el Afiliado</span>
+              </div>
+              
+              <h2 className="text-3xl font-black text-slate-900 mb-8 leading-tight">
+                Empadronamiento Online APROSS: <br/>
+                <span className="text-emerald-700">Paso a paso para tu tranquilidad</span>
+              </h2>
+
+              <div className="prose prose-slate prose-emerald max-w-none">
+                <p className="text-slate-600 font-medium mb-8 leading-relaxed">
+                  Sabemos que gestionar trámites puede generar inquietud, especialmente cuando se trata de tu salud. El <strong>Empadronamiento Online</strong> es la forma en que APROSS valida tu condición para asegurar que recibas la medicación y los tratamientos adecuados sin demoras.
+                </p>
+
+                <div className="space-y-10">
+                  <section>
+                    <h3 className="flex items-center text-xl font-bold text-slate-800 mb-4">
+                      <span className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center text-sm mr-3">1</span>
+                      ¿Cómo inicio el trámite? 📝
+                    </h3>
+                    <p className="text-slate-600 text-sm leading-relaxed ml-11">
+                      Debes ingresar al portal oficial de APROSS con tu usuario y contraseña. Allí encontrarás la sección de "Gestión de Afiliados" donde podrás actualizar tus datos de contacto y subir la documentación requerida por tu oncólogo.
+                    </p>
+                  </section>
+
+                  <section>
+                    <h3 className="flex items-center text-xl font-bold text-slate-800 mb-4">
+                      <span className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center text-sm mr-3">2</span>
+                      Entendiendo los estados del trámite 🔄
+                    </h3>
+                    <div className="ml-11 grid gap-3">
+                      <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 flex items-start space-x-3">
+                        <Clock size={18} className="text-amber-500 mt-0.5" />
+                        <div>
+                          <p className="font-bold text-slate-800 text-sm">Pendiente:</p>
+                          <p className="text-xs text-slate-500">Tu solicitud ha sido recibida y está en espera de ser analizada por el equipo médico de la obra social.</p>
+                        </div>
+                      </div>
+                      <div className="p-4 bg-rose-50 rounded-2xl border border-rose-100 flex items-start space-x-3">
+                        <AlertCircle size={18} className="text-rose-500 mt-0.5" />
+                        <div>
+                          <p className="font-bold text-slate-800 text-sm">Observado:</p>
+                          <p className="text-xs text-slate-500">Falta alguna documentación o un estudio no es legible. ¡No te preocupes! Solo debes revisar el motivo y volver a subir lo solicitado.</p>
+                        </div>
+                      </div>
+                      <div className="p-4 bg-emerald-50 rounded-2xl border border-emerald-100 flex items-start space-x-3">
+                        <ShieldCheck size={18} className="text-emerald-500 mt-0.5" />
+                        <div>
+                          <p className="font-bold text-slate-800 text-sm">Aprobado / Empadronado:</p>
+                          <p className="text-xs text-slate-500">¡Todo está en orden! Ya tienes la cobertura activa para retirar tu medicación o realizar tu tratamiento.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section>
+                    <h3 className="flex items-center text-xl font-bold text-slate-800 mb-4">
+                      <span className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center text-sm mr-3">3</span>
+                      Documentación y Notificaciones 📧
+                    </h3>
+                    <p className="text-slate-600 text-sm leading-relaxed ml-11 mb-4">
+                      Asegúrate de que las fotos de tus estudios sean claras y se lean bien todos los datos. Si te falta algún estudio, puedes iniciar el trámite y subirlo luego cuando lo tengas.
+                    </p>
+                    <div className="ml-11 bg-emerald-900 text-white p-6 rounded-[2rem] flex items-center space-x-4">
+                      <Info size={24} className="text-emerald-300 shrink-0" />
+                      <p className="text-xs font-medium">Recibirás notificaciones por correo electrónico cada vez que el estado de tu trámite cambie. Mantente atento a tu casilla.</p>
+                    </div>
+                  </section>
+                </div>
+
+                <div className="mt-12 pt-10 border-t border-slate-100 text-center">
+                  <p className="text-slate-500 italic text-sm mb-6">"Estamos aquí para guiarte. Si tienes dudas con el portal, acércate a Judith Ponce en administración para orientarte."</p>
+                  <button 
+                    onClick={() => setShowAprossModal(false)}
+                    className="bg-emerald-700 text-white px-10 py-4 rounded-2xl font-black shadow-xl hover:bg-emerald-800 transition-all"
+                  >
+                    Entendido, gracias
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* 1. HEADER / HERO */}
       <nav className="bg-white border-b border-slate-100 sticky top-0 z-50 px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
